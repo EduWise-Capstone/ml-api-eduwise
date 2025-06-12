@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 CORS(app,
      origins=["https://eduwise-ten.vercel.app"],
-     methods=["GET", "POST", "OPTIONS"]) 
+     methods=["GET", "POST", "OPTIONS"],
+     allow_headers=["Content-Type"],
+     supports_credentials=True)
+ 
 # Load model
 model = load_model('model_h5.h5')
 
