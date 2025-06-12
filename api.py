@@ -8,9 +8,7 @@ app = Flask(__name__)
 
 CORS(app,
      origins=["https://eduwise-ten.vercel.app"],
-     methods=["GET", "POST", "OPTIONS"],
-     allow_headers=["Content-Type"],
-     supports_credentials=True) 
+     methods=["GET", "POST", "OPTIONS"]) 
 # Load model
 model = load_model('model_h5.h5')
 
@@ -39,8 +37,14 @@ def predict_vark_style(response_list):
     return predicted_label
 
 # Endpoint /predict
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
     data = request.get_json()
 
     if not data or 'responses' not in data:
