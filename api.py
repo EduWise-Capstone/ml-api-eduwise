@@ -3,6 +3,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from sklearn.preprocessing import LabelEncoder
 from flask_cors import CORS
+import os
 app = Flask(__name__)
 
 CORS(app,
