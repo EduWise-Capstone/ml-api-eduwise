@@ -5,7 +5,9 @@ from sklearn.preprocessing import LabelEncoder
 from flask_cors import CORS
 app = Flask(__name__)
 
-CORS(app)
+CORS(app,
+     origins=["https://eduwise-ten.vercel.app"],
+     methods=["GET", "POST", "OPTIONS"]) 
 # Load model
 model = load_model('model_h5.h5')
 
@@ -51,4 +53,5 @@ def predict():
 
 # Run server
 if __name__ == '__main__':
-    app.run(debug=True, port="https://eduwise-ten.vercel.app")
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
